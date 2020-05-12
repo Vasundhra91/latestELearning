@@ -88,10 +88,12 @@ app.get('/files', (req, res) => {
 
 // Return an individual file
 app.get('/files/:filename', (req, res) => {
+  console.log(req.params.filename)
   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
     if (!file || file.length === 0) return res.status(404).json({ err: 'No file exists' });
     const readstream = gfs.createReadStream(file.filename);
     readstream.pipe(res);
+    
   });
 });
 
