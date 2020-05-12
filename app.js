@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 
 var usersRouter = require('./routes/users');
-//var uploadfileRouter = require('./routes/uploadfile');
+var uploadfileRouter = require('./routes/uploadfile');
 var app = express();
 
 app.use(express.json());
@@ -15,7 +15,7 @@ app.use(cookieParser());
 var controller = require('./Controller/todoController.js')
 
 app.use('/users', usersRouter);
-//app.use('/uploadfile', uploadfileRouter);
+app.use('/uploadfile', uploadfileRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

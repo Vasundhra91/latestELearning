@@ -1,72 +1,75 @@
-import axios from 'axios'; 
+import Button from '@material-ui/core/Button';
 
 import React,{Component} from 'react'; 
 
 class uploadfile extends Component { 
 
-	state = { 
+	constructor(props) {
+        super(props);
 
-	// Initially, no file is selected 
-	selectedFile: null
-	}; 
-	
-	// On file select (from the pop up) 
-	onFileChange = event => { 
-	this.setState({ selectedFile: event.target.files[0] }); 
-	}; 
+        this.onFileChange = this.onFileChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 
-	onFileUpload = () => { 
-	const formData = new FormData(); 
-	formData.append('file', this.state.selectedFile)
+        this.state = {
+            profileImg: ''
+        }
+    }
 
-	console.log(this.state.selectedFile); 
-	axios.post("/users/upload", formData,{}).then(res => { // then print response status
-        console.log(res.statusText)
-      }); 
-	} 
-	
-	fileData = () => { 
-	
-	if (this.state.selectedFile) { 
-		
-		return ( 
-		<div> 
-			<h2>File Details:</h2> 
-			<p>File Name: {this.state.selectedFile.name}</p> 
-			<p>File Type: {this.state.selectedFile.type}</p> 
-			<p> 
-			Last Modified:{" "} 
-			{this.state.selectedFile.lastModifiedDate.toDateString()} 
-			</p> 
-		</div> 
-		); 
-	} else { 
-		return ( 
-		<div> 
-			<br /> 
-			<h4>Choose before Pressing the Upload button</h4> 
-		</div> 
-		); 
-	} 
-	}; 
+    onFileChange(e) {
+        this.setState({ profileImg: e.target.files[0] })
+        console.log(e.target.files[0])
+    }
+
+    onSubmit(e) {
+        e.preventDefault()
+        const formData = new FormData()
+        console.log(this.state.profileImg)
+        formData.append('file', this.state.profileImg)
+        fetch("/uploadfile/upload", {
+      mode: 'no-cors',
+      method: "POST",
+      headers: {
+        "Content-Type": "multipart/form-data; boundary=AaB03x" +
+        "--AaB03x" +
+        "Content-Disposition: file" +
+        "Content-Type: png" +
+        "Content-Transfer-Encoding: binary" +
+        "...data... " +
+        "--AaB03x--",
+        "Accept": "application/json",
+        "type": "formData"
+      },
+      body: formData
+    }).then(function (res) {
+      if (res.ok) {
+        alert("Perfect! ");
+      } else if (res.status == 401) {
+        alert("Oops! ");
+      }
+    }, function (e) {
+      alert("Error submitting form!");
+    });
+  } 
 	
 	render() { 
 	
 	return ( 
 		<div> 
-			<h1> 
-			GeeksforGeeks 
-			</h1> 
 			<h3> 
-			File Upload using React! 
+			Study Material Upload 
 			</h3> 
 			<div> 
 				<input type="file" onChange={this.onFileChange} /> 
-				<button onClick={this.onFileUpload}> 
-				Upload! 
-				</button> 
+        <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            onClick={this.onSubmit}
+          >
+            Upload
+          </Button>
 			</div> 
-		{this.fileData()} 
+      
 		</div> 
 	); 
 	} 
