@@ -16,7 +16,7 @@ var routes = [
     component: home,
     layout: "/admin",
     visible:true,
-    display:"both"
+    display:"home"
    },
   {
     path: "/SigninPage",

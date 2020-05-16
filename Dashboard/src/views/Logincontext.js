@@ -1,36 +1,27 @@
-import React, { Component} from 'react';
+import React, { useReducer, useEffect} from 'react';
+import {userReducer} from './userReducer'
 export const userContext = React.createContext();
-export class UserContextProvider extends Component
+
+export function UserContextProvider(props)
 {
-    state={
-        user:{Fname:"learning123guest",
-         LName:"guestLname",
-         Useremail:"guest@gmail.com",
-         Userpassword:"guest123",
-         UserCourseID:"guestCourse" ,
-         UserAdmin:"guest" ,
-         Inserted_date :"dd/mm/yyyy"}
-    }
-      setUser = user => {
-        this.setState(prevState => ({ user }))
-      }
- render()
-{ const { children } = this.props
-const { user } = this.state
-const { setUser } = this
+  const [user, dispatch] = useReducer(userReducer,[] , ()=>{
+     const localdata= localStorage.getItem('user');
+     return localdata ? JSON.parse(localdata):[]
+  }
+  );
+
+  useEffect(() => {
+    localStorage.setItem('user',JSON.stringify(user))
+    
+  }, [user])
 
     return(
-        <userContext.Provider 
-        value={{
-            user,
-            setUser,
-          }}
-        >
-          {children}
+        <userContext.Provider value={{user,dispatch}}>
+           {props.children}
         </userContext.Provider>
     )
 }
 
-}
+
 
 

@@ -57,11 +57,11 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [Userdetails, setuserdetails] = useState(0);
   const [status, setstatus] = useState(false);
-  const { setUser,user } = useContext(userContext)
+  const {dispatch,user } = useContext(userContext)
 
-  localStorage.setItem("parentValueKey",Math.random())
   useEffect(() => {
-    setUser(Userdetails)
+    if(Userdetails!="0")
+    dispatch({type:'login',user:Userdetails})
   }, [Userdetails])
 
 
@@ -89,12 +89,10 @@ export default function SignIn() {
     }).then(res => res.json())
       .then(Userdetails => setuserdetails({ Userdetails }))
       .catch(error => console.error('Error:', error))
-      .then(Userdetails => localStorage.setItem("parentValueKey",{Userdetails}))
       .then(setstatus("Invalid Login Id Or Password"))
       
-
   }
-  console.log(user)
+  console.log(user.length)
   if (Userdetails === 2) {
     return (
       <Router>
@@ -106,13 +104,12 @@ export default function SignIn() {
     )
   }
   
-  else if (Userdetails !== 0) {
-    let obj = Userdetails;
+  else if (user.length !== 0) {
+    
+    let obj = user;
     let keys = Object.keys(obj);
-    let lat = obj[keys[0]];
-    //adding data to user context
-    // 
-    console.log(localStorage.getItem("parentValueKey"))
+    let lat = obj[keys[0]].Userdetails;
+    
     //if (String(lat.UserAdmin) === 'N') {
     // setmenuroute (route.filter(function (entry) { return entry.display === "user" || entry.display === "both" }))
     return (

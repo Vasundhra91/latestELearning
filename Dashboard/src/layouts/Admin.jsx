@@ -28,15 +28,15 @@ class Dashboard extends React.Component {
     var adminOruser= this.props.menuroute
     if (adminOruser === "Y") {
       this.setState({menuroute: route.filter(function (entry) 
-        { return entry.display === "admin" || entry.display === "both" })})
+        { return entry.display === "admin" || entry.display === "both"|| entry.display === "home" })})
        } else if (adminOruser === "N") {
       
       this.setState({menuroute: route.filter(function (entry) 
-        { return entry.display === "user" || entry.display === "both" })})
+        { return entry.display === "user" || entry.display === "both"|| entry.display === "home" })})
      }else{
       
       this.setState({menuroute: route.filter(function (entry) 
-        { return entry.display === true})})
+        { return entry.display === true || entry.display === "home"})})
      }
     
 

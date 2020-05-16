@@ -13,8 +13,9 @@ export default class User_test extends Component {
     static contextType = userContext;
     componentDidMount() {
         const { user } = this.context
-
-        let lat = user.Userdetails;
+        let obj = user;
+        let keys = Object.keys(obj);
+        let lat = obj[keys[0]].Userdetails;
         this.setState({ userinfoid: lat._id })
         console.log(this.props.location.state.id)
         const newUser = { Ques_id: this.props.location.state.id }

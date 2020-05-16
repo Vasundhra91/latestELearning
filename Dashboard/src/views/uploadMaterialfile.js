@@ -1,33 +1,37 @@
 import Button from '@material-ui/core/Button';
-
 import React, { Component } from 'react';
 
 class uploadfile extends Component {
-
-  constructor(props) {
+ constructor(props) {
     super(props);
-
     this.onFileChange = this.onFileChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-
+    this.onSubmitfile = this.onSubmitfile.bind(this);
     this.state = {
       profileImg: '',
-      profileImg_data: []
+      profileImg_data: [],
+      dataname:''
     }
   }
-
+  componentDidMount() {
+    fetch('/uploadfile/files')
+    .then(res => res.json())
+    .then(Img_data => this.setState({ profileImg_data: Img_data }))
+  }
   onFileChange(e) {
     this.setState({ profileImg: e.target.files[0] })
     console.log(e.target.files[0])
   }
   onSubmitfile(e) {
     e.preventDefault()
-    console.log(e.target.id)
-    fetch('/uploadfile/files/'+ e.target.id , {
-      method: 'get',
-      headers: {
-          'Content-Type': 'application/json'
-      }})
+    this.setState({ dataname:e.target.value })
+    window.open("http://localhost:3001/uploadfile/files/"+""+this.state.dataname+"")
+    // console.log(e.target.value)
+    // fetch('/uploadfile/files/'+ e.target.value , {
+    //   method: 'get',
+    //   responseType: "blob"
+    //  })
+    //  .then(data =>  )
   }
 
   onSubmit(e) {
@@ -56,19 +60,19 @@ class uploadfile extends Component {
   render() {
     const view =this.state.profileImg_data.map(data => {
     return (<div key={data._id}>
-      <Button
+       <button type="submit" id={data._id} style={{backgroundColor:"#3f51b5", color:"#fff"}}
+       onClick={this.onSubmitfile} value={data.filename}> {data.filename} </button>
+      {/* <Button
         type="submit"
         variant="contained"
         color="primary"
         onClick={this.onSubmitfile}
-        id={data._id}
-      >
+        id={data._id} >
         {data.filename}
-      </Button>
+      </Button> */}
     </div>
     )
   })
-    console.log(this.state.profileImg_data)
     return (
       <div>
         <h3>

@@ -1,13 +1,18 @@
-import React from 'react';
+import React ,{useContext}from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import { userContext } from 'views/Logincontext'
 //import Maapform from './RangeCircleform'
 export default function Home() {
-    console.log(localStorage.getItem("parentValueKey"))
+
+    const {dispatch,user } = useContext(userContext)
+
     function handlechange(event) {
-      // localStorage.removeItem("parentValueKey")
+        event.preventDefault();
+        dispatch({type:'logout',user:""})
         }
+       
     const useStyles = makeStyles(theme => ({
         paper: {
             marginTop: theme.spacing(8),
@@ -28,9 +33,7 @@ export default function Home() {
         },
     }));
     const classes = useStyles();
-    function handleSubmit(event) {
-        event.preventDefault();
-    }
+
     return (
         <div style={{paddingTop:"50px"}}>
             <div className="row" style={{ background: "blue", width: "100%" }}>
