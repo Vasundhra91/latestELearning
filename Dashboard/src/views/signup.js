@@ -61,19 +61,22 @@ export default function SignUp() {
   const [selectedOption, setselectedOption] = useState(false);
   const [data, setData] = useState({label: "Loading ...", value: ""});
   const [loading, setLoading] = React.useState(true);
-  const [status, setstatus] = useState(false);
+  const [status, setstatus] = useState("");
+  const [msg , setmsg]=useState("");
 
   function validateForm() {
     return email.length > 0 && password.length > 0 && course.length > 0 && firstName.length > 0 && lastName.length > 0;
   }
   
-  function handleChange(event) {
-    var id =event.value;
-    setselectedOption({ id });
+  function handleChange(selectedOption) {
+    var id =selectedOption.value;
+    setselectedOption(selectedOption);
     setcourse(id);
-    console.log(event.value)
+    
    };
+   
   useEffect(() => {
+    setLoading(true);
     axios
         .get("/users/coursedetails")
         .then(result => setData(result.data.map((data) => { return { value: data._id, label: data.Usercourse } })))
@@ -106,12 +109,24 @@ export default function SignUp() {
   }).then(res => res.json())
       .then(returndata => setreturndata({ returndata }))
       .catch(error => console.error('Error:', error))
-      .then(setstatus("SignUp Sucessfully"))
+     // .then(setstatus("SignUp Sucessfully"))
 
     event.target.reset();
    
     
 }
+useEffect(() => {
+console.log(returndata)
+if(returndata.returndata ==1){
+setstatus("Already Exist")
+setmsg("alert alert-danger")
+}
+else if (returndata.returndata ==2)
+{
+setstatus("SignUp Sucessfully")
+setmsg("alert alert-success")
+}
+}, [returndata])
 
   return (
     <div style={{backgroundImage: `url(${homeimg})`}}>
@@ -126,7 +141,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up 
         </Typography>
-       <div style={{ color: 'red' }}> {status}</div>
+       <div className={msg}> {status}</div>
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -192,7 +207,7 @@ export default function SignUp() {
                 autoComplete="current-course"
                 onChange={e => setcourse(e.target.value)}
               /> */}
-              <Select disabled={loading} value={selectedOption} classname ="form-control input-sm" options={data}  onChange={handleChange}  />
+              <Select isDisabled={loading} value={selectedOption} classname ="form-control input-sm" options={data}  onChange={handleChange}  />
            
             </Grid>
             <Grid item xs={12}>

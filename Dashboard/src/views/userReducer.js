@@ -1,7 +1,6 @@
 
 
 export const userReducer=(state, action)=>{
-    console.log(action.type)
     switch(action.type)
     {
         case 'login':

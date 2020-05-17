@@ -27,11 +27,11 @@ router.post('/', function (req, res) {
     if (datavalue === null) {
       LoginModel.create(req.body).then(function (data) {
         { 
-          res.send(JSON.stringify({ id :req.body.Fname +req.body.LName }, null, 3)); }
+          res.send("2"); }
       })
     } else {
       console.log("Already Exit")
-
+      res.send("1"); 
     }
   })
 });
@@ -68,13 +68,13 @@ router.post('/login', function (req, res) {
       //   .json({
       //     res: 'Internal error please try again'
       //   });
-        console.log("1")
+      res.send("1"); 
     } else if (!user) {
       // res.status(401)
       //   .json({
       //     res: 'Incorrect email or password'
       //   });
-        console.log("2")
+        res.send("1"); 
     }
      else {
       console.log( user)

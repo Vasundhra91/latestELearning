@@ -44,7 +44,7 @@ export default function Home() {
             <Container component="main" maxWidth="xs" style={{background:"#cce6ff"}}>
                 <form className={classes.form} noValidate>
            
-                <Link href="/" onClick={handlechange} variant="body2" style={{ color: "red",fontSize:"20px"}}>
+                <Link href="/signin/" onClick={handlechange} variant="body2" style={{ color: "red",fontSize:"20px"}}>
                 {"Logout"}
               </Link>
           

@@ -56,13 +56,21 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [Userdetails, setuserdetails] = useState(0);
-  const [status, setstatus] = useState(false);
+  const [status, setstatus] = useState("");
   const [signup, setsignup] = useState(false);
   const {dispatch,user } = useContext(userContext)
-
+  const [msg , setmsg]=useState("");
   useEffect(() => {
     if(Userdetails!="0")
+    {
+    if(Userdetails.Userdetails!="1")
     dispatch({type:'login',user:Userdetails})
+    }
+    if(Userdetails.Userdetails=="1")
+    {
+     setstatus("Invalid Login Id Or Password")
+     setmsg("alert alert-danger")
+    }
   }, [Userdetails])
 
 
@@ -90,7 +98,7 @@ export default function SignIn() {
     }).then(res => res.json())
       .then(Userdetails => setuserdetails({ Userdetails }))
       .catch(error => console.error('Error:', error))
-      .then(setstatus("Invalid Login Id Or Password"))
+      //.then(setstatus("Invalid Login Id Or Password"))
       
   }
   console.log(user.length)
@@ -145,7 +153,7 @@ export default function SignIn() {
             <Typography component="h1" variant="h5">
               Sign in
         </Typography>
-       <div style={{ color: 'red' }}> {status}</div>
+        <div className={msg}> {status}</div>
             <form onSubmit={handleSubmit} className={classes.form} noValidate>
               <TextField
                 variant="outlined"
