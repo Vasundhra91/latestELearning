@@ -8,7 +8,9 @@ class AdmitCard extends React.Component {
   static contextType = userContext;
   componentDidMount() {
     const { user } = this.context
-    let lat = user.Userdetails;
+    let obj = user;
+    let keys = Object.keys(obj);
+    let lat = obj[keys[0]].Userdetails;
     const newUser = {
       Userid: lat._id,
       status:null,

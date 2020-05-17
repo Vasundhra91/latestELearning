@@ -13,6 +13,9 @@ var modelschema = new Schema({
     UserCourseID:{
         type: String
     },
+    UserCourseName:{
+        type: String
+    },
     MCQ_ques: {
         type: String
     },

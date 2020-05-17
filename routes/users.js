@@ -123,7 +123,8 @@ router.post('/UserTestPaper', function (req, res) {
       let item = {}   
     if(uniqueNames.indexOf(data[i].Ques_id) === -1){
         uniqueNames.push(data[i].Ques_id);   
-        item["Ques_id"] = data[i].Ques_id   
+        item["Ques_id"] = data[i].Ques_id 
+        item["UserCourseName"] = data[i].UserCourseName  
         testResult.push(item)    
     }
    }
@@ -147,7 +148,8 @@ router.post('/AdminTestPaper', function (req, res) {
       let item = {}   
     if(uniqueNames.indexOf(data[i].Ques_id) === -1){
         uniqueNames.push(data[i].Ques_id);   
-        item["Ques_id"] = data[i].Ques_id   
+        item["Ques_id"] = data[i].Ques_id 
+        item["UserCourseName"] = data[i].UserCourseName 
         testResult.push(item)    
     }
    }

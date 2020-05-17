@@ -57,6 +57,7 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [Userdetails, setuserdetails] = useState(0);
   const [status, setstatus] = useState(false);
+  const [signup, setsignup] = useState(false);
   const {dispatch,user } = useContext(userContext)
 
   useEffect(() => {
@@ -70,7 +71,7 @@ export default function SignIn() {
   }
   function handleevent(event) {
     event.preventDefault();
-    setuserdetails(2)
+    setsignup(true)
   }
 
   function handleSubmit(event) {
@@ -93,7 +94,7 @@ export default function SignIn() {
       
   }
   console.log(user.length)
-  if (Userdetails === 2) {
+  if (signup === true) {
     return (
       <Router>
         <Switch>

@@ -15,6 +15,7 @@ class AddQuestion extends React.Component {
         MCQ_Answer: [],
         Ques_id: Math.random(),
         selectedOption: "",
+        selectedlabel:"",
         data: { label: "Loading ...", value: "" },
         loading: true,
         classes: makeStyles(theme => ({
@@ -51,6 +52,7 @@ class AddQuestion extends React.Component {
     }
     handleChange = selectedOption => {
         this.setState({ selectedOption: selectedOption.value });
+        this.setState({ selectedlabel: selectedOption.label });
         this.setState({ loading: true })
     };
     handleEvent = (e) => {
@@ -78,6 +80,7 @@ class AddQuestion extends React.Component {
                 Ques_id: this.state.Ques_id,
                 MCQ_Answer: this.state.MCQ_Answer,
                 MCQ_ques: this.state.MCQ_ques,
+                UserCourseName:this.state.selectedlabel,
                 MCQ_option: jsonObj,
                 UserCourseID: this.state.selectedOption,
                 Inserted_date: date
