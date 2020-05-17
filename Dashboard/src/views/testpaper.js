@@ -102,32 +102,32 @@ export default class User_paper extends Component {
         }
         else {
             const MCQ_queslist = this.state.testpaper.map(MCQ_ques => {
-                
+
                 return (
-                    <div key={MCQ_ques._id} >
-                        <Row>
-                            <Col md="12">
-                                <Card>
-                                    <CardHeader>
-                                        <CardTitle tag="h4">Question Paper for {MCQ_ques.UserCourseName}</CardTitle>
-                                    </CardHeader>
-                                    <CardBody>
-                                        <Table>
-                                            <tr>
-                                                <td>
-                                                    <div>
-                                                        <button type="submit" id={MCQ_ques.Ques_id} onClick={this.handleSumbmitEvent}> Procced for Test </button>
-                                                    </div>
-                                                </td>
-                                                <td style={{ display: (this.state.visiblebutton ? 'block' : 'none') }}>
-                                                    <button type="submit" id={MCQ_ques.Ques_id} onClick={this.handleDeleteEvent}> Delete </button>
-                                                </td>
-                                            </tr>
-                                        </Table>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                        </Row>
+                    <div key={MCQ_ques.Ques_id}>
+                        <div className="content">
+                            <Row>
+                                <Col md="12">
+                                    <Card>
+                                        <CardHeader>
+                                            <CardTitle tag="h4">Question Paper for {MCQ_ques.UserCourseName}</CardTitle>
+                                        </CardHeader>
+                                        <CardBody>
+                                            <Table >
+                                                <tbody>
+                                                    <tr>
+                                                        <td>  <button type="submit" id={MCQ_ques.Ques_id} onClick={this.handleSumbmitEvent}> Procced for Test </button></td>
+                                                        <td style={{ display: (this.state.visiblebutton ? 'block' : 'none') }}>
+                                                            <button type="submit" id={MCQ_ques.Ques_id} onClick={this.handleDeleteEvent}> Delete </button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </Table>
+                                        </CardBody>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </div>
                     </div>
                 )
             }
