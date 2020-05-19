@@ -25,6 +25,9 @@ var modelschema = new Schema({
     MCQ_option: {
         type: JSON
     },
+   AnsweredValue: {
+        type: String
+    },
     Inserted_date: {
         type: String
     } 

@@ -116,9 +116,9 @@ export default class User_paper extends Component {
                                             <Table >
                                                 <tbody>
                                                     <tr>
-                                                        <td>  <button type="submit" id={MCQ_ques.Ques_id} onClick={this.handleSumbmitEvent}> Procced for Test </button></td>
+                                                        <td>  <button className="btn btn-primary"  type="submit" id={MCQ_ques.Ques_id} onClick={this.handleSumbmitEvent}> Procced for Test </button></td>
                                                         <td style={{ display: (this.state.visiblebutton ? 'block' : 'none') }}>
-                                                            <button type="submit" id={MCQ_ques.Ques_id} onClick={this.handleDeleteEvent}> Delete </button>
+                                                            <button className="btn btn-primary" type="submit" id={MCQ_ques.Ques_id} onClick={this.handleDeleteEvent}> Delete </button>
                                                         </td>
                                                     </tr>
                                                 </tbody>

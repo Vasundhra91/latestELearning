@@ -12,19 +12,25 @@ var ps;
 //var menuroute =route.filter(function (entry) { return entry.display === true; });
 
 class Dashboard extends React.Component {
+  static contextType = userContext;
   constructor(props) {
     super(props);
     this.state = {
       backgroundColor: "black",
       activeColor: "info",
-      menuroute: route.filter(function (entry) { return entry.display === true; })
+      menuroute: route.filter(function (entry) { return entry.display === true; }),
+      username:""
     };
     this.mainPanel = React.createRef();
   }
   static contextType = userContext;
 
   componentDidMount() {
-
+    const { user } = this.context
+    let obj = user;
+    let keys = Object.keys(obj);
+    let lat = obj[keys[0]].Userdetails;
+this.setState({username:lat.Fname + " "+ lat.LName})
     var adminOruser= this.props.menuroute
     if (adminOruser === "Y") {
       this.setState({menuroute: route.filter(function (entry) 
@@ -74,6 +80,8 @@ class Dashboard extends React.Component {
           activeColor={this.state.activeColor}
         />
         <div className="main-panel" ref={this.mainPanel}>
+          <div style={{float: 'right',color:"blue",marginRight:"20px",marginTop:"15px"}}> 
+          <h6>Welcome.!! {this.state.username}</h6> </div>
           <DemoNavbar {...this.props} />
           <Switch>
             {this.state.menuroute.map((prop, key) => {

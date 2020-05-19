@@ -82,6 +82,7 @@ class AddQuestion extends React.Component {
                 MCQ_ques: this.state.MCQ_ques,
                 UserCourseName:this.state.selectedlabel,
                 MCQ_option: jsonObj,
+                AnsweredValue: '',
                 UserCourseID: this.state.selectedOption,
                 Inserted_date: date
 

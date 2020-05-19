@@ -7,7 +7,7 @@ export default class User_test extends Component {
         Marks: " ",
         Result: " ",
         users_answer: [],
-        selectedValue: "",
+        selectedValue: [],
         userinfoid: ""
     }
     static contextType = userContext;
@@ -27,47 +27,20 @@ export default class User_test extends Component {
             }
         }).then(res => res.json())
             //.then(response => console.log('Success:', JSON.stringify(response)))
-            .then(users => this.setState({ users }))
+            .then(users => this.setState({ users :users}))
             .catch(error => console.error('Error:', error))
-
+            
     }
     handleSumbmitEvent = (e) => {
         e.preventDefault();
-        var a = this.state.users_answer;
-        var b = this.state.users;
-        // let testResult = [];
-        // let usertestResult = "";
-        if (a.length !== b.length)
-            this.setState({ Marks: "incorrect format" })
-        else {
-            var totalmarks = 0;
-
-            for (var i = 0; i < a.length; i++) {
-                // let Result = ""
-                // var answers = "W"
-                // let item = {}
-                // let jsonObj = [];
-
-                // item["Ques_id"] = b[i].Ques_id;
-                // item["MCQ_tests_id"]=b[i]._id;
-                // item["MCQ_Answer"] = a[i][0].MCQ_Answer;
-                // item["MCQ_Ques"] = b[i].MCQ_ques;
-                if (a[i][0].MCQ_Answer === b[i].MCQ_Answer && (a[i][0].Ques_id == b[i]._id)) {
+        var totalmarks = 0;
+            for (var i = 0; i < this.state.users.length; i++) {
+                if (this.state.users[i].AnsweredValue === this.state.users[i].MCQ_Answer) {
                     totalmarks++;
-                    // answers = "R";
-                    // item["Result"] = answers;
                 }
-                else {
-                    // answers = "W";
-                    // item["Result"] = answers;
-                }
-                //      jsonObj.push(item);
-                //    testResult.push(jsonObj)
             }
-            //console.log(JSON.stringify(testResult))
-        }
 
-        var percent = totalmarks * 100 / a.length;
+        var percent = totalmarks * 100 / this.state.users.length;
         var Result = ""
         if (Math.round(percent) >= 60) {
 
@@ -83,7 +56,7 @@ export default class User_test extends Component {
         var tempDate = new Date();
         var date = tempDate.getFullYear() + '-' + (tempDate.getMonth() + 1) + '-' + tempDate.getDate() + ' ' + tempDate.getHours() + ':' + tempDate.getMinutes() + ':' + tempDate.getSeconds();
         const newUser = {
-            Ques_id: b[0].Ques_id,
+            Ques_id: this.state.users[0].Ques_id,
             User_id: this.state.userinfoid,
             Marks: totalmarks,
             Result: Result,
@@ -101,43 +74,33 @@ export default class User_test extends Component {
     }
 
     render() {
-
-        let Result = ""
-        let item = {}
-        let jsonObj = [];
-
+        
         const handleChange = event => {
-            this.setState({ selectedValue: event.target.value });
-            item["Ques_id"] = event.target.id;
-            item["MCQ_Answer"] = event.target.value;
-            jsonObj.push(item);
-            Result = [...this.state.users_answer, jsonObj]
-            this.setState({
-                users_answer: Result
-            })
-        };
+            function newusers(_id, AnsweredValue, statevalue) {
+            const findExistingItem = statevalue.find(item => {
+                    return item._id == _id;
+                });
+                if (findExistingItem) {
+                    findExistingItem._id = _id;
+                    findExistingItem.AnsweredValue = AnsweredValue;
+                }
+                return statevalue
+            }
+            var returnvalue = newusers(event.target.name, event.target.value, this.state.users);
+            this.setState({ selectedValue: returnvalue })
 
+        };
         const MCQ_queslist = this.state.users.map(MCQ_ques => {
             return (
-                <div key={MCQ_ques._id}>
+                <div style={{fontSize:"15px"}} key={MCQ_ques._id}>
                     <div> Question: {MCQ_ques.MCQ_ques} </div>
                     <div> Option:  </div>
-                    {MCQ_ques.MCQ_option.map(function (MCQ_option, i) {
-                        return <div key={i}>
-                            <label>
-                                <Radio
-                                    // checked={this.state.selectedValue === {MCQ_option}}
-                                    onChange={handleChange}
-                                    id={MCQ_ques._id}
-                                    value={MCQ_option}
-                                    color="default"
-                                    name="radio-button-demo"
-                                    inputProps={{ 'aria-label': 'D' }}
-                                />
-                                {MCQ_option}
-                            </label>
-                        </div>
-                    })}
+                        {MCQ_ques.MCQ_option.map(function (MCQ_option, i) {
+                            return <div  key={i}>
+                                <input type="radio" name={MCQ_ques._id} id={i} onChange={handleChange} value={MCQ_option}/> {MCQ_option}
+                                    </div>
+                        })}
+                           
                 </div>
             )})
         return (
@@ -151,7 +114,7 @@ export default class User_test extends Component {
                             <div style={{ color: 'Blue' }}>
                                 <h3> {this.state.Marks} {this.state.Result}</h3>
                             </div>
-                            <button type="submit">Submit </button>
+                            <button className="btn btn-primary" type="submit">Submit </button>
                         </div>
                     </div></div>
             </form>

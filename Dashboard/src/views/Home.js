@@ -6,7 +6,7 @@ import { userContext } from 'views/Logincontext'
 //import Maapform from './RangeCircleform'
 export default function Home() {
 
-    const {dispatch,user } = useContext(userContext)
+    const {dispatch} = useContext(userContext)
 
     function handlechange(event) {
         event.preventDefault();
@@ -41,10 +41,10 @@ export default function Home() {
                     <h2>E-Learning</h2>
                 </div>
              <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-            <Container component="main" maxWidth="xs" style={{background:"#cce6ff"}}>
+            <Container component="main" maxWidth="xs">
                 <form className={classes.form} noValidate>
            
-                <Link href="/signin/" onClick={handlechange} variant="body2" style={{ color: "red",fontSize:"20px"}}>
+                <Link href="/signin/" onClick={handlechange} variant="body2" className="btn btn-primary">
                 {"Logout"}
               </Link>
           
