@@ -61,8 +61,8 @@ export default function AddCourse() {
     }, []);
 
     return (
-        <div>
-            <Container component="main" maxWidth="xs" style={{ background: "#FFFDD0" }}>
+        <div><div style={{ paddingTop: "52px" }}>
+            <Container component="main" maxWidth="xs" style={{ background: "#cce6ff" }}>
                 <h2> Add Users Course</h2>
                 <form onSubmit={handleSubmit} className={classes.form} noValidate>
                     <TextField
@@ -97,6 +97,7 @@ export default function AddCourse() {
                 ))}
             </ul>
             </Container>
+        </div>
         </div>
     )
 

@@ -81,7 +81,7 @@ this.setState({username:lat.Fname + " "+ lat.LName})
         />
         <div className="main-panel" ref={this.mainPanel}>
           <div style={{float: 'right',color:"blue",marginRight:"20px",marginTop:"15px"}}> 
-          <h6>Welcome.!! {this.state.username}</h6> </div>
+          <h6>User:  {this.state.username}</h6> </div>
           <DemoNavbar {...this.props} />
           <Switch>
             {this.state.menuroute.map((prop, key) => {
