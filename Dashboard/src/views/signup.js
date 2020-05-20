@@ -20,9 +20,10 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      {/* <Link color="inherit" href="https://material-ui.com/"> */}
         Your Website
-      </Link>{' '}
+      {/* </Link> */}
+      {' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -210,7 +211,7 @@ setmsg("alert alert-success")
               <Select isDisabled={loading} value={selectedOption} classname ="form-control input-sm" options={data}  onChange={handleChange}  />
            
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{display:'none'}}>
               <FormControlLabel
                 control={<Checkbox value="Y" color="primary" />}
                 label="Admin"

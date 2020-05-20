@@ -62,19 +62,12 @@ class uploadfile extends Component {
     return (<div key={data._id}>
        <button type="submit" id={data._id} style={{backgroundColor:"#3f51b5", color:"#fff"}}
        onClick={this.onSubmitfile} value={data.filename}> {data.filename} </button>
-      {/* <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        onClick={this.onSubmitfile}
-        id={data._id} >
-        {data.filename}
-      </Button> */}
+
     </div>
     )
   })
     return (
-      <div>
+      <div style={{ paddingTop: "52px" }}>
         <h3>
           Study Material Upload
 			</h3>

@@ -54,7 +54,8 @@ app.use(methodOverride('_method'));
 app.get('/', (req, res) => {
   gfs.files.find().toArray((err, files) => {
     if (!files || files.length === 0) {
-      res.render('index', { files: false });
+      console.log("No data found..")
+     res.send("No files exist")
     } else {
       files.map((file) => {
         (file.contentType === 'image/jpeg' || file.contentType === 'image/png') ? file.isImage = true : file.isImage = false;
@@ -68,7 +69,7 @@ app.get('/', (req, res) => {
 app.post('/upload', upload.single('file'), (req, res) => {
   gfs.files.find().toArray((err, files) => {
     if (!files || files.length === 0) {
-      res.render('index', { files: false });
+      //res.render('index', { files: false });
     } else {
       files.map((file) => {
         (file.contentType === 'image/jpeg' || file.contentType === 'image/png') ? file.isImage = true : file.isImage = false;
@@ -81,7 +82,8 @@ app.post('/upload', upload.single('file'), (req, res) => {
 // Return array of all files
 app.get('/files', (req, res) => {
   gfs.files.find().toArray((err, files) => {
-    if (!files || files.length === 0) return res.status(404).json({ err: 'No files exist' });
+    if (!files || files.length === 0) 
+    return res.send("No files exist");
     return res.json(files);
   });
 });
