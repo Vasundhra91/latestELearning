@@ -39,7 +39,7 @@ var routes = [
   },
   {
     path: "/AdminPage",
-    name: "Admin",
+    name: "Add Test Paper",
     icon: "nc-icon nc-caps-small",
     component: AdminPage,
     layout: "/admin",

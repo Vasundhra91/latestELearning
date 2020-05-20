@@ -15,7 +15,6 @@ import Container from '@material-ui/core/Container';
 import axios from "axios";
 import homeimg from '../image/elearning.jpg'
 import Select from "react-select";
-import { Redirect } from 'react-router-dom'
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -95,6 +94,13 @@ function onSubmit(e) {
   }).then(res => res.json())
     .then(Img_data => setprofileImg_data(Img_data))
 }
+
+useEffect(() => {
+  if(profileImg_data.length>0){
+    setstatus("Picture Saved Sucessfully")
+    setmsg("alert alert-success")}
+},[profileImg_data])
+
 ///--------------------///
 
   function validateForm() {
