@@ -84,6 +84,7 @@ app.get('/files', (req, res) => {
   gfs.files.find().toArray((err, files) => {
     if (!files || files.length === 0) 
     return res.send("No files exist");
+    
     return res.json(files);
   });
 });
@@ -92,7 +93,8 @@ app.get('/files', (req, res) => {
 app.get('/files/:filename', (req, res) => {
   console.log(req.params.filename)
   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-    if (!file || file.length === 0) return res.status(404).json({ err: 'No file exists' });
+    if (!file || file.length === 0)
+      return res.send("No files exist");
     const readstream = gfs.createReadStream(file.filename);
     readstream.pipe(res);
   });
@@ -101,12 +103,13 @@ app.get('/files/:filename', (req, res) => {
 // Return an individual file only if it is an image
 app.get('/image/:filename', (req, res) => {
   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-    if (!file || file.length === 0) return res.status(404).json({ err: 'No file exists' });
+    if (!file || file.length === 0) 
+     return res.send("No files exist");
     if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
       const readstream = gfs.createReadStream(file.filename);
       readstream.pipe(res);
     } else {
-      res.status(404).json({ err: 'Not an image' });
+      res.json({ err: 'Not an image' });
     }
   });
 });

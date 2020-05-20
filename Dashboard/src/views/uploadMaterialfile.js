@@ -27,11 +27,9 @@ class uploadfile extends Component {
     this.setState({ dataname:e.target.value })
     window.open("http://localhost:3001/uploadfile/files/"+""+this.state.dataname+"")
     // console.log(e.target.value)
-    // fetch('/uploadfile/files/'+ e.target.value , {
-    //   method: 'get',
-    //   responseType: "blob"
-    //  })
-    //  .then(data =>  )
+    //  fetch('/uploadfile/files/'+ e.target.value)
+    //  .then(res => res.json())
+    //  .then(Img_data => this.setState({ profileImg_data: Img_data }))
   }
 
   onSubmit(e) {
@@ -60,6 +58,7 @@ class uploadfile extends Component {
   render() {
     const view =this.state.profileImg_data.map(data => {
     return (<div key={data._id}>
+      <img  src={"/uploadfile/image/"+data.filename}  alt="Placeholder image"/>
        <button type="submit" id={data._id} style={{backgroundColor:"#3f51b5", color:"#fff"}}
        onClick={this.onSubmitfile} value={data.filename}> {data.filename} </button>
 
