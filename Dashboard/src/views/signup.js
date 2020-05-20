@@ -64,6 +64,38 @@ export default function SignUp() {
   const [loading, setLoading] = React.useState(true);
   const [status, setstatus] = useState("");
   const [msg , setmsg]=useState("");
+  const [ profileImg, setprofileImg]=useState("");
+  const [ profileImg_data, setprofileImg_data]=useState([]);
+
+//-----file upload-----//
+function onFileChange(e) {
+  setprofileImg(e.target.files[0])
+  console.log(e.target.files[0])
+}
+
+function onSubmit(e) {
+  e.preventDefault()
+  const formData = new FormData()
+  formData.append('file', profileImg)
+  fetch("/uploadfile/upload", {
+    mode: 'no-cors',
+    method: "POST",
+    headers: {
+      "Content-Type": "multipart/form-data; boundary=AaB03x" +
+        "--AaB03x" +
+        "Content-Disposition: file" +
+        "Content-Type: png" +
+        "Content-Transfer-Encoding: binary" +
+        "...data... " +
+        "--AaB03x--",
+      "Accept": "application/json",
+      "type": "formData"
+    },
+    body: formData
+  }).then(res => res.json())
+    .then(Img_data => setprofileImg_data(Img_data))
+}
+///--------------------///
 
   function validateForm() {
     return email.length > 0 && password.length > 0 && course.length > 0 && firstName.length > 0 && lastName.length > 0;
@@ -197,19 +229,7 @@ setmsg("alert alert-success")
               />
             </Grid>
             <Grid item xs={12}>
-              {/* <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="course"
-                label="Course"
-                type="course"
-                id="course"
-                autoComplete="current-course"
-                onChange={e => setcourse(e.target.value)}
-              /> */}
               <Select isDisabled={loading} value={selectedOption} classname ="form-control input-sm" options={data}  onChange={handleChange}  />
-           
             </Grid>
             <Grid item xs={12} style={{display:'none'}}>
               <FormControlLabel
@@ -217,6 +237,21 @@ setmsg("alert alert-success")
                 label="Admin"
                 onChange={e => setAdmin(e.target.value)}
               />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+            <input type="file"
+             onChange={onFileChange} 
+             />
+             </Grid>
+             <Grid item xs={12} sm={6}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            onClick={onSubmit}
+          >
+            Upload
+          </Button>
             </Grid>
           </Grid>
           <Button
