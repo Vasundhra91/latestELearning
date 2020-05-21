@@ -21,7 +21,7 @@ const MCQ_Function = ({ MCQ_quesdetails, DeleteMCQ_quesdetails }) => {
             <div> Answer: {MCQ_ques.MCQ_Answer} </div>
           </Grid>
           <Grid item xs={3}>
-            <Button variant="contained" color="primary" onClick={() => { DeleteMCQ_quesdetails(MCQ_ques.id) }}> Delete Item </Button>
+            <Button variant="contained" color="primary" onClick={() => { DeleteMCQ_quesdetails(MCQ_ques.id) }}> Delete </Button>
           </Grid>
         </Grid>
       </div>

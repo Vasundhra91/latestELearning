@@ -85,13 +85,17 @@ router.post('/login', function (req, res) {
 })
 
 router.post('/Admin', function (req, res) {
-  console.log(req.body)
+  try {
   SubmitModel.create(req.body).then(function (error, data) {
-    if (error) { throw error }
-    console.log(res.status(200).send(JSON.stringify({ status: "Data Save Successfully" }, null, 3)))
-    res.status(200).send(JSON.stringify({ status: "Data Save Successfully" }, null, 3));
+    // if (error) { throw error }
+    // console.log(res.status(200).send(JSON.stringify({ status: "Data Save Successfully" }, null, 3)))
+    res.send(true);
 
   })
+}catch (error) {
+  { throw error }
+}
+  
 });
 router.post('/UserTestResult', function (req, res) {
   console.log(req.body)
