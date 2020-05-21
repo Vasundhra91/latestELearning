@@ -41,15 +41,21 @@ router.post('/userinfo_byid', function (req, res) {
   var query = { User_id: req.body.Userid };
   UserTestResultModel.find().count().exec(function (error, Count) {
     if (error) { throw error }
-    if (Count >= 10) {
+    if (Count >= 1) {
       UserTestResultModel.findOne(query, function (error, data) {
         if (error) { throw error }
+        console.log(data)
+        if(data!== null){
         if (data.Result === "PASS") {
           UserCourse.findOne({ _id: req.body.UserCourseID }, function (error, datavalue) {
             if (error) { throw error }
             res.json(datavalue);
           })
         }
+      }
+      else {
+        res.json({ status: "null" });
+      }
       })
     } else {
       res.json({ status: "null" });

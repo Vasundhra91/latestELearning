@@ -76,7 +76,7 @@ function onSubmit(e) {
   e.preventDefault()
   const formData = new FormData()
   formData.append('file', profileImg)
-  fetch("/uploadfile/upload", {
+  fetch("/uploaduserphoto/upload", {
     mode: 'no-cors',
     method: "POST",
     headers: {
@@ -104,7 +104,7 @@ useEffect(() => {
 ///--------------------///
 
   function validateForm() {
-    return email.length > 0 && password.length > 0 && course.length > 0 && firstName.length > 0 && lastName.length > 0;
+    return profileImg_data.length > 0 && email.length > 0 && password.length > 0 && course.length > 0 && firstName.length > 0 && lastName.length > 0;
   }
   
   function handleChange(selectedOption) {
@@ -135,6 +135,7 @@ useEffect(() => {
       Userpassword:password,
       UserAdmin: Admin,
       UserCourseID: course,
+      UserPhotoID: profileImg_data,
       Inserted_date:date
     }
   
@@ -159,6 +160,21 @@ console.log(returndata)
 if(returndata.returndata ==1){
 setstatus("Already Exist")
 setmsg("alert alert-danger")
+
+setEmail("")
+setPassword("")
+setfirstName("")
+setlastName("")
+setcourse("")
+setAdmin("N")
+setreturndata(0)
+setselectedOption("")
+setData({label: "Loading ...", value: ""})
+setLoading(true)
+setstatus("")
+setmsg("")
+setprofileImg("")
+setprofileImg_data([])
 }
 else if (returndata.returndata ==2)
 {

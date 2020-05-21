@@ -32,12 +32,14 @@ class AdmitCard extends React.Component {
   render() {
     if (this.state.UserCourse.status === "null") {
       return (
-        <div style={{ paddingTop: "50px" }}>
+        <div style={{ paddingTop: "52px" }}>
           <div className="container">
-        <div className="row" style={{ background: "#cce6ff", width: "100%" }}>
+        <div style={{ background: "#cce6ff", width: "100%" }}>
         
-        <div><h2> Admit Card </h2></div>
-          <h3>No Records Found.!</h3>
+        <div ><h2> Admit Card </h2>
+        </div>
+        <div><h3>No Records Found.!</h3></div>
+          
           </div>
        </div>
        </div>
@@ -49,10 +51,18 @@ class AdmitCard extends React.Component {
             <div className="container">
               <div><h2> Admit Card </h2></div>
               <div key={this.state.usersinfo._id}>
-                <div> Name: {this.state.usersinfo.Fname} {this.state.usersinfo.LName} </div>
-                <div> Email Id: {this.state.usersinfo.Useremail} </div>
-                <div> Course: {this.state.UserCourse.Usercourse} </div>
+                <div className="row border border-primary">
+                  <div className="col-xl-3 col-xl-3 col-md-3 col-sm-3 col-xs-3">
+                  <img style={{width:"100Px",height:"100px"}} src={"/uploaduserphoto/image/"+this.state.usersinfo.UserPhotoID}  alt="Placeholder image"/>
+                  </div>
+                  <div className="col-xl-5 col-xl-5 col-md-5 col-sm-5 col-xs-5">
+                  <div> <h6>Name: {this.state.usersinfo.Fname} {this.state.usersinfo.LName} </h6>  </div>
+                <div> <h6>Email Id:  {this.state.usersinfo.Useremail} </h6> </div>
+                <div> <h6>Course: {this.state.UserCourse.Usercourse} </h6>  </div>
                 <div>
+                  </div>
+                </div>
+                
                 </div>
               </div>
             </div>

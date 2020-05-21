@@ -20,6 +20,9 @@ var modelschema = new Schema({
    UserAdmin: {
       type: String,
    },
+   UserPhotoID: {
+      type: String,
+   },
    Inserted_date: {
        type: String
    } 
