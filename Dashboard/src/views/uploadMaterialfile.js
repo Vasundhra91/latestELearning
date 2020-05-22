@@ -58,7 +58,7 @@ class uploadfile extends Component {
   render() {
     const view =this.state.profileImg_data.map(data => {
     return (<div key={data._id}>
-      <img  src={"/uploadfile/image/"+data.filename}  alt="Placeholder image"/>
+      {/* <img  src={"/uploadfile/image/"+data.filename}  alt="Placeholder image"/> */}
        <button type="submit" id={data._id} style={{backgroundColor:"#3f51b5", color:"#fff"}}
        onClick={this.onSubmitfile} value={data.filename}> {data.filename} </button>
 
@@ -66,7 +66,9 @@ class uploadfile extends Component {
     )
   })
     return (
-      <div style={{ paddingTop: "52px" }}>
+      <div style={{ paddingTop: "50px",paddingLeft:"15px"}}>
+                        <div className="row" style={{ background: "#cce6ff", width: "100%" }}>
+                            <div className="container">
         <h3>
           Study Material Upload
 			</h3>
@@ -80,8 +82,9 @@ class uploadfile extends Component {
             Upload
           </Button>
           {view}
-
+</div>
       </div>
+    </div>
     );
   }
 }

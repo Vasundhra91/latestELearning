@@ -54,11 +54,13 @@ router.post('/userinfo_byid', function (req, res) {
         }
       }
       else {
-        res.json({ status: "null" });
+        console.log("status: null")
+        res.json({ Usercourse: "null" });
       }
       })
     } else {
-      res.json({ status: "null" });
+      res.json({ Usercourse: "null" });
+      //res.json({ status: "null" });
     }
   })
 })
@@ -160,13 +162,15 @@ router.post('/UserTestPaper', function (req, res) {
 });
 
 router.post('/AdminTestPaper', function (req, res) {
+  try{
   SubmitModel.aggregate(
     [
       //{$group : {"_id" : {"Ques_id" : "$Ques_id" }}},
       { $sort: { _id: 1 } }
     ]).exec(function (error, data) {
       if (error) { throw error }
-
+      console.log(data)
+if(data!=null){
       let testResult = []
 
       var uniqueNames = [];
@@ -181,7 +185,11 @@ router.post('/AdminTestPaper', function (req, res) {
       }
       console.log(testResult)
       res.json(testResult);
+    }else{
+      res.send("0");}
     });
+  }
+    catch(error){}
 });
 
 router.delete('/deletetest_paper/:id', (req, res) => {
@@ -199,6 +207,7 @@ router.delete('/deletetest_paper/:id', (req, res) => {
         if (uniqueNames.indexOf(data[i].Ques_id) === -1) {
           uniqueNames.push(data[i].Ques_id);
           item["Ques_id"] = data[i].Ques_id
+          item["UserCourseName"] = data[i].UserCourseName
           testResult.push(item)
         }
       }
@@ -226,10 +235,12 @@ router.post('/addcourse', function (req, res) {
 });
 
 router.get('/coursedetails', function (req, res) {
+ try{
   UserCourse.find({}, function (error, datavalue) {
     if (error) { throw error }
     res.json(datavalue);
-  })
+  })}
+  catch(error){}
 })
 
 

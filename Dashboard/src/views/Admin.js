@@ -55,9 +55,9 @@ class Admin extends React.Component {
             window.location.reload(true);
         }
         else{
-            return (
+            return (<div style={{ paddingTop: "50px" }}>
                 <div style={{background:"#cce6ff"}}>
-                    {this.state.labelmsg}
+                    <h6 style={{color:"red",paddingLeft:"10px"}}>{this.state.labelmsg}</h6>
                     {/* <label id="lbl_success" value={this.state.labelmsg}></label> */}
                     <Addques AddDetails ={this.AddMCQDetails} />
                     <ViewAddMCQGrid MCQ_quesdetails={this.state.MCQ_ques} DeleteMCQ_quesdetails={this.DeleteMCQ_ques} />
@@ -66,6 +66,7 @@ class Admin extends React.Component {
                     <Button disabled={!this.validateForm()} type="submit" fullWidth variant="contained" color="primary">SAVE</Button>
                     </div>
                     </form>
+                </div>
                 </div>
             )
         }
