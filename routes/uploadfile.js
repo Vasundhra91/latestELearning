@@ -41,7 +41,7 @@ const storage = new GridFsStorage({
   }
 });
 
-const upload = multer({ storage });
+const upload = multer({ storage ,});
 
 // Middleware
 app.use(express.json());
@@ -118,7 +118,12 @@ app.get('/image/:filename', (req, res) => {
 app.delete('/files/:id', (req, res) => {
   gfs.remove({ _id: req.params.id, root: 'uploads' }, (err, gridStore) => {
     if (err) res.status(404).json({ err: err });
-    res.redirect('/');
+    gfs.files.find().toArray((err, files) => {
+      if (!files || files.length === 0) 
+      return res.send("No files exist");
+      
+      return res.json(files);
+    });
   });
 });
 

@@ -2,7 +2,7 @@ import React from 'react'
 import ViewAddMCQGrid from "./ViewAddMCQGrid.js";
 import Addques from "./AddQues.js";
 import Button from '@material-ui/core/Button';
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+//import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
 class Admin extends React.Component {
     state={

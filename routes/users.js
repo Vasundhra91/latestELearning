@@ -45,7 +45,7 @@ router.post('/userinfo_byid', function (req, res) {
      ] )
     .exec(function (error, Count) {
     if (error) { throw error }
-    if (Count.length >= 10) {
+    if (Count.length >= 1) {
       console.log("object")
       UserTestResultModel.findOne(query, function (error, data) {
         if (error) { throw error }

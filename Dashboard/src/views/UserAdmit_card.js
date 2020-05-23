@@ -1,6 +1,7 @@
 import React from 'react';
 import { userContext } from 'views/Logincontext'
 import Loader from "react-loader-spinner";
+
 class AdmitCard extends React.Component {
   state = {
     UserCourse: [],
