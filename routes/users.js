@@ -39,9 +39,14 @@ router.post('/', function (req, res) {
 
 router.post('/userinfo_byid', function (req, res) {
   var query = { User_id: req.body.Userid };
-  UserTestResultModel.find().count().exec(function (error, Count) {
+  UserTestResultModel.aggregate( [ 
+    {"$group" : {_id:"$User_id", 
+    count:{$sum:1}}}
+     ] )
+    .exec(function (error, Count) {
     if (error) { throw error }
-    if (Count >= 1) {
+    if (Count.length >= 10) {
+      console.log("object")
       UserTestResultModel.findOne(query, function (error, data) {
         if (error) { throw error }
         console.log(data)
@@ -54,7 +59,7 @@ router.post('/userinfo_byid', function (req, res) {
         }
       }
       else {
-        console.log("status: null")
+        console.log("status: q")
         res.json({ Usercourse: "null" });
       }
       })

@@ -20,7 +20,7 @@ class AdmitCard extends React.Component {
     const Userinfo = {
       name: "Name: "+lat.Fname+" "+lat.LName,
       Email: "Email: "+ lat.Useremail,
-      Course: "Course: "+ lat.Usercourse
+      UserPhotoID:lat.UserPhotoID
     }
     
     setTimeout(() => {
@@ -39,8 +39,6 @@ class AdmitCard extends React.Component {
 
   }
   render() {
-    console.log(this.state.UserCourse.Usercourse  )
-
     return (
       <>{!this.state.done ? (
         <div style={{ paddingTop: "100px", paddingLeft: "500px" }}>
@@ -56,12 +54,12 @@ class AdmitCard extends React.Component {
             <div key={this.state.usersinfo._id}>
               <div className="row border border-primary">
                 <div className="col-xl-3 col-xl-3 col-md-3 col-sm-3 col-xs-3">
-                  <img style={{ width: "100Px", height: "100px" }} src={"/uploaduserphoto/image/" + this.state.usersinfo.UserPhotoID} alt="Placeholder image" />
+                  <img style={{ width: "100px", height: "100px" }} src={"/uploaduserphoto/image/" + this.state.usersinfo.UserPhotoID} alt="Placeholder image" />
                 </div>
                 <div className="col-xl-5 col-xl-5 col-md-5 col-sm-5 col-xs-5">
                   <div> <h6>  {this.state.usersinfo.name}</h6> </div>
                   <div> <h6>  { this.state.usersinfo.Email} </h6> </div>
-                  <div> <h6>{ this.state.usersinfo.Course} </h6>  </div>
+                  <div> <h6> { "Course: "+ this.state.UserCourse.Usercourse } </h6>  </div>
                   <div>
                   </div>
                 </div>

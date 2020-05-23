@@ -1,6 +1,6 @@
 import Button from '@material-ui/core/Button';
 import React, { Component } from 'react';
-
+import { userContext } from 'views/Logincontext';
 class uploadfile extends Component {
  constructor(props) {
     super(props);
@@ -10,10 +10,20 @@ class uploadfile extends Component {
     this.state = {
       profileImg: '',
       profileImg_data: [],
-      dataname:''
+      dataname:'',
+      visiblebutton: true,
     }
   }
+  static contextType = userContext;
   componentDidMount() {
+    const { user } = this.context
+        let obj = user;
+        let keys = Object.keys(obj);
+        let lat = obj[keys[0]].Userdetails;
+      
+        if (lat.UserAdmin === "N") {
+          this.setState({ visiblebutton: false })
+        }
     fetch('/uploadfile/files')
     .then(res => res.json())
     .then(Img_data => this.setState({ profileImg_data: Img_data }))
@@ -72,6 +82,7 @@ class uploadfile extends Component {
         <h3>
           Study Material Upload
 			</h3>
+      <div style={{ display: (this.state.visiblebutton ? 'block' : 'none') }}>
           <input type="file" onChange={this.onFileChange} />
           <Button
             type="submit"
@@ -80,7 +91,7 @@ class uploadfile extends Component {
             onClick={this.onSubmit}
           >
             Upload
-          </Button>
+          </Button></div>
           {view}
 </div>
       </div>

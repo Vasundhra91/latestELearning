@@ -76,12 +76,12 @@ var routes = [
   ,
   {
     path: "/UploadTestFile",
-    name: "Upload Test File",
+    name: "Test Materials",
     icon: "nc-icon nc-caps-small",
     component: uploadMaterialfile,
     layout: "/admin",
     visible:true,
-    display:"admin"
+    display:"both"
   },
   {
     path: "/UserAdmit_card",
