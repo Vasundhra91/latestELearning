@@ -33,14 +33,25 @@ class uploadfile extends Component {
 
     if (lat.UserAdmin === "N") {
       this.setState({ visiblebutton: false })
-    }
-    fetch('/uploadfile/files')
+      fetch('/uploadfile/usersfiles', {
+        method: 'POST',
+        body: JSON.stringify({courseid:lat.UserCourseID}),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
       .then(res => res.json())
       .then(Img_data => this.setState({ profileImg_data: Img_data }))
 
-    axios.get("/users/coursedetails")
+    }else{
+    fetch('/uploadfile/files')
+      .then(res => res.json())
+      .then(Img_data => this.setState({ profileImg_data: Img_data }))
+      axios.get("/users/coursedetails")
       .then(result => this.setState({ data: result.data.map((data) => { return { value: data._id, label: data.Usercourse } }) }))
       .then(this.setState({ loading: false }))
+    }
+    
 
   }
   onFileChange(e) {
@@ -115,7 +126,7 @@ class uploadfile extends Component {
         <div className="row" style={{ background: "#cce6ff", width: "100%" }}>
           <div className="container">
             <h3>
-              Study Material Upload
+              Study Material
 			</h3>
 
             <div style={{ display: (this.state.visiblebutton ? 'block' : 'none') }}>

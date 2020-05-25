@@ -9,10 +9,11 @@ module.exports = function (app) {
         }));
         app.enable('trust proxy');
     const config = require(__dirname + '../../ConfigFile/config.js').connectionstring;
-
+try{
     mongoose.connect(config)
         .then(() => console.log('database Connected')).catch(error => console.log(error));
-
+}catch(error)
+{throw error}
     //app.use('/users', getdata);
 
 }

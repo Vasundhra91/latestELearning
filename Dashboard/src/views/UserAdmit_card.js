@@ -14,6 +14,7 @@ class AdmitCard extends React.Component {
     let obj = user;
     let keys = Object.keys(obj);
     let lat = obj[keys[0]].Userdetails;
+    console.log(lat)
     const newUser = {
       Userid: lat._id,
       UserCourseID: lat.UserCourseID
@@ -40,6 +41,7 @@ class AdmitCard extends React.Component {
 
   }
   render() {
+    console.log(this.state.usersinfo)
     return (
       <>{!this.state.done ? (
         <div style={{ paddingTop: "100px", paddingLeft: "500px" }}>
