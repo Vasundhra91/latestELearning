@@ -94,7 +94,6 @@ app.post('/usersfiles', (req, res) => {
   gfs.files.find({filename: {$regex: new RegExp(id.courseid)}}).toArray((err, files) => {
     if (!files || files.length === 0) 
     return res.send("No files exist");
-    console.log(files)
     return res.json(files);
   });
 });
