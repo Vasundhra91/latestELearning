@@ -8,7 +8,7 @@ import uploadMaterialfile from "views/uploadMaterialfile"
 import UserAdmit_card from "views/UserAdmit_card"
 import Usercourse from "views/course"
 import ViewQuesPaper from "views/adminviewTestPaper"
-import test from "views/test"
+//import test from "views/test"
 var routes = [
   {
     path: "/home",
@@ -101,16 +101,17 @@ var routes = [
     layout: "/admin",
     visible:true,
     display:"admin"
-  },
-  {
-    path: "/test",
-    name: "test",
-    icon: "nc-icon nc-caps-small",
-    component: test,
-    layout: "/admin",
-    visible:true,
-    display:"both"
   }
+  // ,
+  // {
+  //   path: "/test",
+  //   name: "test",
+  //   icon: "nc-icon nc-caps-small",
+  //   component: test,
+  //   layout: "/admin",
+  //   visible:true,
+  //   display:"both"
+  // }
   
 ];
 export default routes;

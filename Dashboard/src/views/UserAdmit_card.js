@@ -1,6 +1,9 @@
 import React from 'react';
 import { userContext } from 'views/Logincontext'
 import Loader from "react-loader-spinner";
+import './admidcardview/style.css';
+import Doc from './admidcardview/DocService';
+import PdfContainer from './admidcardview/PdfContainer';
 
 class AdmitCard extends React.Component {
   state = {
@@ -8,13 +11,14 @@ class AdmitCard extends React.Component {
     usersinfo: [],
     done: undefined
   }
+  createPdf = (html) => Doc.createPdf(html);
+  
   static contextType = userContext;
   componentDidMount() {
     const { user } = this.context
     let obj = user;
     let keys = Object.keys(obj);
     let lat = obj[keys[0]].Userdetails;
-    console.log(lat)
     const newUser = {
       Userid: lat._id,
       UserCourseID: lat.UserCourseID
@@ -37,25 +41,27 @@ class AdmitCard extends React.Component {
         .then(this.setState({ usersinfo: Userinfo }))
         .then(this.setState({ done: true }))
         .catch(error => console.error('Error:', error))
-    }, 1200);
+    }, 2000);
 
   }
   render() {
-    console.log(this.state.usersinfo)
+    
     return (
-      <>{!this.state.done ? (
+      <> <div style={{ paddingTop: "50px" }}>
+        <div className="row" style={{ background: "#cce6ff", width: "100%" }}>
+          <div className="container">
+      
+      {!this.state.done ? (
         <div style={{ paddingTop: "100px", paddingLeft: "500px" }}>
           <Loader type="Grid" color="#00BFFF" height={100} width={100} /></div>
       ) : (<>
         {this.state.UserCourse.Usercourse !== "null" ?
         (
         <>{this.state.UserCourse.Usercourse == undefined ?"":(
-         <div style={{ paddingTop: "50px" }}>
-        <div className="row" style={{ background: "#cce6ff", width: "100%" }}>
-          <div className="container">
+         <>
+         <PdfContainer createPdf={this.createPdf}>
             <div><h2> Admit Card </h2></div>
-            <div key={this.state.usersinfo._id}>
-              <div className="row border border-primary">
+            <div key={this.state.usersinfo._id}  className="row border border-primary">
                 <div className="col-xl-3 col-xl-3 col-md-3 col-sm-3 col-xs-3">
                   <img style={{ width: "100px", height: "100px" }} src={"/uploaduserphoto/image/" + this.state.usersinfo.UserPhotoID} alt="Placeholder image" />
                 </div>
@@ -66,12 +72,9 @@ class AdmitCard extends React.Component {
                   <div>
                   </div>
                 </div>
-
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
+            </PdfContainer>
+         </>
         )}</>)
  :
           (<> <div style={{ paddingTop: "52px" }}>
@@ -84,6 +87,9 @@ class AdmitCard extends React.Component {
           </>) }
            </>)
       }
+      </div>
+      </div>
+      </div>
       </>)
 
 

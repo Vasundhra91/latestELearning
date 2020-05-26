@@ -45,7 +45,7 @@ router.post('/userinfo_byid', function (req, res) {
      ] )
     .exec(function (error, Count) {
     if (error) { throw error }
-    if (Count.length >= 10) {
+    if (Count.length >= 1) {
       UserTestResultModel.findOne(query, function (error, data) {
         if (error) { throw error }
         console.log(data)
@@ -222,9 +222,10 @@ router.delete('/deletetest_paper/:id', (req, res) => {
 });
 
 router.post('/addcourse', function (req, res) {
-  console.log(req.body)
+  try
+  {
   UserCourse.create(req.body).then(function (error, data) {
-    try {
+    if (error) { throw error }
       UserCourse.find({}, function (error, datavalue) {
         if (error) { throw error }
         console.log(datavalue)
@@ -232,10 +233,10 @@ router.post('/addcourse', function (req, res) {
       })
       // console.log(res.status(200).send(JSON.stringify({ status : "Data Save Successfully" }, null, 3)))
       // res.status(200).send(JSON.stringify({ status : "Data Save Successfully" }, null, 3));
-    } catch{
-      res.status(500).send(JSON.stringify({ status: "Server Error" }, null, 3));
-    }
   })
+} catch{
+  res.status(500).send(JSON.stringify({ status: "Server Error" }, null, 3));
+}
 });
 
 router.get('/coursedetails', function (req, res) {

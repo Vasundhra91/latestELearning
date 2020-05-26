@@ -1,86 +1,62 @@
-import React from 'react';
-import { Image,PDFViewer,Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+import React, { Component } from 'react';
+import './admidcardview/style.css';
+import Doc from './admidcardview/DocService';
+import PdfContainer from './admidcardview/PdfContainer';
+import homeimg from '../image/elearning.jpg'
+class test extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'Still, Jaime',
+      rank: 'SGT',
+      description: 'Demonstrate how to export an HTML section to PDF'
+    };
+  }
 
-// Create styles
-const styles = StyleSheet.create({
-    page: {
-      height:'100%',
-      padding: 30,
-    },
-    container: {
-      flex: 1,
-      flexDirection: 'row',
-      '@media max-width: 400': {
-        flexDirection: 'column',
-      },
-    },
-    image: {
-      marginBottom: 10,
-    },
-    leftColumn: {
-      flexDirection: 'column',
-      width: 170,
-      paddingTop: 30,
-      paddingRight: 15,
-      '@media max-width: 400': {
-        width: '100%',
-        paddingRight: 0,
-      },
-      '@media orientation: landscape': {
-        width: 200,
-      },
-    },
-    footer: {
-      fontSize: 12,
-      fontFamily: 'Lato Bold',
-      textAlign: 'center',
-      marginTop: 25,
-      paddingTop: 10,
-      borderWidth: 3,
-      borderColor: 'gray',
-      borderStyle: 'dashed',
-      '@media orientation: landscape': {
-        marginTop: 10,
-      },
-    },
-  });
-  
+  onChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    this.setState((state) => {
+      state[name] = value;
+      return state;
+    })
+  }
 
-// Create Document Component
-const MyDocument = () => (
-  <Document>
-    <Page size="A4" style={{ backgroundColor: 'tomato' }}>
-      <View style={{ color: 'white', textAlign: 'center', margin: 30 }}>
-      <View style={styles.leftColumn}>
-      <View style={styles.section}>
-        <Text>Section #1</Text>
-      </View>
-      <View style={styles.section}>
-        <Text>Section #1</Text>
-      </View>
-      <View style={styles.section}>
-        <Text>Section #2</Text>
-      </View>
-    </View>
-    </View>
-    </Page>
-  
-  </Document>
-  
-);
-class AdmitCard extends React.Component {
-    render()
-    {
-        return(
-            <div style={{ paddingTop: "52px" }}>
-            <PDFViewer style={{width:"100%",height:"100%"}}>
-                
-            <MyDocument />
-          </PDFViewer>
-          
-          <link></link>
-          </div>
-        )
-    }
+  createPdf = (html) => Doc.createPdf(html);
+
+  render() {
+    console.log(this.state);
+    return (
+      <React.Fragment>
+        <section className="header-bar">
+          <span className="header">Export React Component to PDF</span>
+        </section>
+        <PdfContainer createPdf={this.createPdf}>
+          <React.Fragment>
+            <section className="flex-column">
+              <h2 className="flex">Form Name</h2>
+              <section className="flex-row">
+              <img style={{ width: "100px", height: "100px" }} src={homeimg}></img>
+                <input placeholder="Rank"
+                  name="rank"
+                  value={this.state.rank}
+                  onChange={this.onChange} />
+                <input className="flex"
+                  placeholder="Name"
+                  name="name"
+                  value={this.state.name}
+                  onChange={this.onChange} />
+              </section>
+              <textarea rows="20"
+                placeholder="Description"
+                name="description"
+                value={this.state.description}
+                onChange={this.onChange} />
+            </section>
+          </React.Fragment>
+        </PdfContainer>
+      </React.Fragment>
+    );
+  }
 }
-export default AdmitCard;
+ export default test

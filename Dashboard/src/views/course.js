@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -28,9 +27,6 @@ export default function AddCourse() {
     }));
     const classes = useStyles();
     const [course, setcourse] = useState("");
-
-
-
     function validateForm() {
         return course.length > 0;
     }
@@ -38,7 +34,6 @@ export default function AddCourse() {
         event.preventDefault();
         var tempDate = new Date();
         var date = tempDate.getFullYear() + '-' + (tempDate.getMonth() + 1) + '-' + tempDate.getDate() + ' ' + tempDate.getHours() + ':' + tempDate.getMinutes() + ':' + tempDate.getSeconds();
-
         const newUser = {
             Usercourse: course,
             Inserted_date: date
@@ -50,15 +45,14 @@ export default function AddCourse() {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
-        .then(data => setData({ data }))
+        .then(result => setData(result.data))
         .catch(error => console.error('Error:', error));
-
     }
     useEffect(() => {
         axios
             .get("/users/coursedetails")
             .then(result => setData(result.data))
-    }, []);
+    }, [data]);
 
     return (
         <div><div style={{ paddingTop: "52px" }}>
