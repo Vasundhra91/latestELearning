@@ -16,6 +16,7 @@ class uploadfile extends Component {
       visiblebutton: true,
       selectedOption: "",
       selectedlabel: "",
+      status:"",
       data: { label: "Loading ...", value: "" },
       loading: true,
     }
@@ -57,6 +58,9 @@ class uploadfile extends Component {
   onFileChange(e) {
     this.setState({ profileImg: e.target.files[0] })
   }
+  validateForm() {
+    return this.state.selectedOption.length > 0 && this.state.profileImg!=""
+  }
   onSubmitfile(e) {
     e.preventDefault()
     this.setState({ dataname: e.target.value })
@@ -91,7 +95,9 @@ class uploadfile extends Component {
       body: formData
     }).then(res => res.json())
       .then(Img_data => this.setState({ profileImg_data: Img_data }))
-  }
+      .then (this.setState({profileImg: null}))
+      .then (this.setState({status:this.state.profileImg.name + " Uploaded Successfully"}))
+    }
   handleDeleteEvent = (e) => {
     e.preventDefault();
     fetch('/uploadfile/files/' + e.target.id, {
@@ -101,6 +107,7 @@ class uploadfile extends Component {
       }
     }).then(res => res.json())
       .then(Img_data => this.setState({ profileImg_data: Img_data }))
+      .then (this.setState({status: e.target.value.substr(0, e.target.value.indexOf('_Courseid_')) +"  Deleted Successfully"}))
   }
 
   render() {
@@ -108,14 +115,14 @@ class uploadfile extends Component {
     const view = this.state.profileImg_data.map(data => {
       return (<div key={data._id}>
         {/* <img  src={"/uploadfile/image/"+data.filename}  alt="Placeholder image"/> */}
-        <div className="row">
-          <div>
+        <div className="row container" >
+          <div className="col-lg-3 col-xl-3 col-sm-6 col-xs-6">
             <button type="submit" id={data._id} style={{ backgroundColor: "#3f51b5", color: "#fff" }}
               onClick={this.onSubmitfile} value={data.filename}>
               {data.filename.substr(0, data.filename.indexOf('_Courseid_'))} </button>
           </div>
           <div style={{ display: (this.state.visiblebutton ? 'block' : 'none') }}>
-            <button style={{ backgroundColor: "#CD5C5C", color: "#fff" }} type="submit" id={data._id} onClick={this.handleDeleteEvent}> Delete </button>
+            <button style={{ backgroundColor: "#CD5C5C", color: "#fff" }} type="submit" id={data._id}  value={data.filename} onClick={this.handleDeleteEvent}> Delete </button>
           </div>
         </div>
       </div>
@@ -128,6 +135,7 @@ class uploadfile extends Component {
             <h3>
               Study Material
 			</h3>
+      <h6 style={{color:"red"}}> {this.state.status}</h6>
 
             <div style={{ display: (this.state.visiblebutton ? 'block' : 'none') }}>
               <div className="col-lg-3 col-xl-3 col-md-3 col-sm-6">
@@ -139,6 +147,7 @@ class uploadfile extends Component {
                 variant="contained"
                 color="primary"
                 onClick={this.onSubmit}
+                disabled={!this.validateForm()}
               >
                 Upload
           </Button></div>

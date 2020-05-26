@@ -173,8 +173,8 @@ router.post('/AdminTestPaper', function (req, res) {
       { $sort: { _id: 1 } }
     ]).exec(function (error, data) {
       if (error) { throw error }
-      console.log(data)
-if(data!=null){
+      console.log(data=="")
+if(data!=""){
       let testResult = []
 
       var uniqueNames = [];
@@ -190,8 +190,10 @@ if(data!=null){
       console.log(testResult)
       res.json(testResult);
     }else{
+      console.log(0)
       res.send("0");}
     });
+    
   }
     catch(error){}
 });
