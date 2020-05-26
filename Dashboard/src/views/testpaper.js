@@ -59,7 +59,7 @@ export default class User_paper extends Component {
                 .then(testpaper => this.setState({ testpaper }))
                 .then(this.setState({ done: true }))
                 .catch(error => console.error('Error:', error))
-            }, 500);
+            }, 1000);
         }
     }
 
