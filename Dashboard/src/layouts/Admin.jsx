@@ -6,7 +6,7 @@ import { userContext } from 'views/Logincontext'
 import DemoNavbar from "components/Navbars/DemoNavbar.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
-
+import homeimg from '../image/main.jpg'
 import route from "routes.js";
 var ps;
 //var menuroute =route.filter(function (entry) { return entry.display === true; });
@@ -79,8 +79,9 @@ this.setState({username:lat.Fname + " "+ lat.LName})
           bgColor={this.state.backgroundColor}
           activeColor={this.state.activeColor}
         />
-        <div className="main-panel" ref={this.mainPanel}>
-          <div style={{float: 'right',color:"blue",marginRight:"20px",marginTop:"15px"}}> 
+        <div className="main-panel" ref={this.mainPanel}  style={{ backgroundImage: `url(${homeimg})` }}>
+        
+          <div style={{float: 'right',color:"blue", backgroundColor:"#e6f2ff",marginRight:"20px",marginTop:"15px"}}> 
           <h6>User:  {this.state.username}</h6> </div>
           <DemoNavbar {...this.props} />
           <Switch>
@@ -96,8 +97,8 @@ this.setState({username:lat.Fname + " "+ lat.LName})
           </Switch>
           <Footer fluid />
         </div>
+        </div>
 
-      </div>
     );
   }
 }
