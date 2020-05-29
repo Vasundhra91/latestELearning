@@ -20,6 +20,18 @@ router.post('/id', function (req, res, next) {
   })
 });
 
+router.post('/check', function (req, res) {
+  var query = { Useremail: req.body.Useremail };
+  LoginModel.findOne(query, function (error, datavalue) {
+    if (datavalue !== null) {
+      res.send("3");
+    }else{
+      res.send("0");
+    }
+    if (error) { throw error }
+  })
+})
+
 router.post('/', function (req, res) {
   var query = { Useremail: req.body.Useremail };
   LoginModel.findOne(query, function (error, datavalue) {

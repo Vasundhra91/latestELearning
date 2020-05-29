@@ -61,15 +61,15 @@ export default function SignUp() {
   const [selectedOption, setselectedOption] = useState(false);
   const [data, setData] = useState({label: "Loading ...", value: ""});
   const [loading, setLoading] = React.useState(true);
-  const [status, setstatus] = useState("");
+  const [status, setstatus] = useState("0");
   const [msg , setmsg]=useState("");
-  const [ profileImg, setprofileImg]=useState("");
+  const [ profileImg, setprofileImg]=useState([]);
   const [ profileImg_data, setprofileImg_data]=useState([]);
 
 //-----file upload-----//
 function onFileChange(e) {
   setprofileImg(e.target.files[0])
-  console.log(e.target.files[0])
+  console.log(e.target.files[0]!==[])
 }
 
 function onSubmit(e) {
@@ -101,6 +101,10 @@ useEffect(() => {
     setmsg("alert alert-success")}
 },[profileImg_data])
 
+function validateFormupload() {
+  return email.length > 0 && password.length > 0 && course.length > 0 && firstName.length > 0 && lastName.length > 0;
+}
+
 ///--------------------///
 
   function validateForm() {
@@ -122,6 +126,23 @@ useEffect(() => {
         setLoading(false);
 }, []);
 
+function handlecheck(event) {
+  event.preventDefault();
+  const newUser={
+    Useremail:email
+  }
+fetch('/users/check', {
+  method: 'POST',
+  body: JSON.stringify(newUser),
+  headers: {
+      'Content-Type': 'application/json'
+  }
+}).then(res => res.json())
+    .then(returndata => setreturndata({ returndata }))
+    .catch(error => console.error('Error:', error))
+    
+    setEmail("")
+}
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -151,13 +172,23 @@ useEffect(() => {
       .catch(error => console.error('Error:', error))
      // .then(setstatus("SignUp Sucessfully"))
 
-    event.target.reset();
+   event.target.reset();
    
     
 }
 useEffect(() => {
-console.log(returndata)
-if(returndata.returndata ==1){
+console.log(returndata.returndata)
+if(returndata.returndata ===0){
+setstatus("")
+setmsg("")
+setEmail("")
+}
+if(returndata.returndata ===3){
+  setstatus("Email-id is Already Exist")
+  setmsg("alert alert-danger")  
+  setEmail("")
+}
+if(returndata.returndata ===1){
 setstatus("Already Exist")
 setmsg("alert alert-danger")
 
@@ -167,16 +198,16 @@ setfirstName("")
 setlastName("")
 setcourse("")
 setAdmin("N")
-setreturndata(0)
+//setreturndata(0)
 setselectedOption("")
 setData({label: "Loading ...", value: ""})
 setLoading(true)
-setstatus("")
-setmsg("")
+//setstatus("")
+//setmsg("")
 setprofileImg("")
 setprofileImg_data([])
 }
-else if (returndata.returndata ==2)
+else if (returndata.returndata ===2)
 {
 setstatus("SignUp Sucessfully")
 setmsg("alert alert-success")
@@ -234,6 +265,7 @@ setmsg("alert alert-success")
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onBlur={handlecheck}
                 onChange={e => setEmail(e.target.value)}
               />
             </Grid>
@@ -271,6 +303,7 @@ setmsg("alert alert-success")
             variant="contained"
             color="primary"
             onClick={onSubmit}
+            disabled={!validateFormupload()}
           >
             Upload
           </Button>

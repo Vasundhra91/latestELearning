@@ -123,11 +123,11 @@ class AddQuestion extends React.Component {
                             </Grid>
 
                             <Grid item style={{ paddingRight: "15px" }}>
-                                <TextField id="MCQ_option" onChange={this.handleEvent} label="Option" multiline rows={4} placeholder="Write Option with comma separated" variant="outlined" onChange={this.handleEvent} />
+                                <TextField id="MCQ_option" onChange={this.handleEvent} label="Option" multiline rows={4} placeholder="Write Option with comma separated" variant="outlined" />
                             </Grid>
 
                             <Grid item style={{ paddingRight: "15px" }}>
-                                <TextField id="MCQ_Answer" onChange={this.handleEvent} label="Answer" multiline rows={4} placeholder="Answer." variant="outlined" onChange={this.handleEvent} />
+                                <TextField id="MCQ_Answer" onChange={this.handleEvent} label="Answer" multiline rows={4} placeholder="Answer." variant="outlined"  />
                             </Grid>
 
                             <Grid item>

@@ -49,7 +49,6 @@ class Admin extends React.Component {
         this.setState({MCQ_ques:[], labelmsg:"Data Save Successfully"})
     }
     render() {
-        console.log(this.state.setSubmit===true)
         if(this.state.setSubmit===true)
         {
             window.location.reload(true);
@@ -57,8 +56,8 @@ class Admin extends React.Component {
         else{
             return (<div style={{ paddingTop: "50px" }}>
                 <div style={{background:"#cce6ff"}}>
-                    <h6 style={{color:"red",paddingLeft:"10px"}}>{this.state.labelmsg}</h6>
-                    {/* <label id="lbl_success" value={this.state.labelmsg}></label> */}
+                   {this.state.labelmsg!==""?<div className="alert alert-success" role="alert">{this.state.labelmsg}</div>
+                  :""}   {/* <label id="lbl_success" value={this.state.labelmsg}></label> */}
                     <Addques AddDetails ={this.AddMCQDetails} />
                     <ViewAddMCQGrid MCQ_quesdetails={this.state.MCQ_ques} DeleteMCQ_quesdetails={this.DeleteMCQ_ques} />
                     <form onSubmit={this.handleAddtoDb}>

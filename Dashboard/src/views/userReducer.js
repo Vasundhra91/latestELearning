@@ -7,5 +7,6 @@ export const userReducer=(state, action)=>{
             return[...state,action.user]
         case 'logout':
              return[]
+             default: return[...state,action.user]
     }
 }

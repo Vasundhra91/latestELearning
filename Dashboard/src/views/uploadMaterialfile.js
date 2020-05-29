@@ -59,7 +59,7 @@ class uploadfile extends Component {
     this.setState({ profileImg: e.target.files[0] })
   }
   validateForm() {
-    return this.state.selectedOption.length > 0 && this.state.profileImg!=""
+    return this.state.selectedOption.length > 0 && this.state.profileImg!==""
   }
   onSubmitfile(e) {
     e.preventDefault()

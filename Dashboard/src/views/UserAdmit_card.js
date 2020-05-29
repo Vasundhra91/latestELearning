@@ -57,7 +57,7 @@ class AdmitCard extends React.Component {
       ) : (<>
         {this.state.UserCourse.Usercourse !== "null" ?
         (
-        <>{this.state.UserCourse.Usercourse == undefined ?"":(
+        <>{this.state.UserCourse.Usercourse === undefined ?"":(
          <>
          <PdfContainer createPdf={this.createPdf}>
             <div><h2> Admit Card </h2></div>
