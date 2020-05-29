@@ -193,12 +193,12 @@ useEffect(() => {
 if(returndata.returndata ===0){
 setstatus("")
 setmsg("")
-setEmail("")
+//setEmail("")
 }
 if(returndata.returndata ===3){
   setstatus("Email-id is Already Exist")
   setmsg("alert alert-danger")  
-  setEmail("")
+ // setEmail("")
 }
 if(returndata.returndata ===1){
 setstatus("Already Exist")

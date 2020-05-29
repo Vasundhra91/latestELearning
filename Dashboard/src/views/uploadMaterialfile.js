@@ -57,6 +57,7 @@ class uploadfile extends Component {
   }
   onFileChange(e) {
     this.setState({ profileImg: e.target.files[0] })
+    
   }
   validateForm() {
     return this.state.selectedOption.length > 0 && this.state.profileImg!==""
@@ -74,9 +75,12 @@ class uploadfile extends Component {
   onSubmit(e) {
     e.preventDefault()
     //const formData = new FormData()
-    var newFileName = this.state.profileImg.name + "_Courseid_" + this.state.selectedOption;
+    var createfilename= this.state.profileImg.name.split('.')
+    var filename= createfilename[0] + "_Courseid_" + this.state.selectedOption +"."+ createfilename[1]
+    console.log(filename)
+   // var newFileName = this.state.profileImg.name + "_Courseid_" + this.state.selectedOption;
     var formData = new FormData();
-    formData.append('file', this.state.profileImg, newFileName);
+    formData.append('file', this.state.profileImg, filename);
     //formData.append('file', this.state.profileImg)
     fetch("/uploadfile/upload", {
       mode: 'no-cors',
