@@ -107,6 +107,11 @@ function validateFormupload() {
 
 ///--------------------///
 
+const validate = (email) => {
+  const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+
+  return expression.test(String(email).toLowerCase())
+}
   function validateForm() {
     return profileImg_data.length > 0 && email.length > 0 && password.length > 0 && course.length > 0 && firstName.length > 0 && lastName.length > 0;
   }
@@ -128,6 +133,9 @@ function validateFormupload() {
 
 function handlecheck(event) {
   event.preventDefault();
+ if (validate(email)){
+  setstatus("")
+  setmsg("")
   const newUser={
     Useremail:email
   }
@@ -141,6 +149,13 @@ fetch('/users/check', {
     .then(returndata => setreturndata({ returndata }))
     .catch(error => console.error('Error:', error))
 }
+else{
+  setstatus("Email-id format is not correct")
+  setmsg("alert alert-warning")  
+  //setEmail("")
+}
+}
+
 
   function handleSubmit(event) {
     event.preventDefault();
