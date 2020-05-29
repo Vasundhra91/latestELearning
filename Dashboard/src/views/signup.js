@@ -61,7 +61,7 @@ export default function SignUp() {
   const [selectedOption, setselectedOption] = useState(false);
   const [data, setData] = useState({label: "Loading ...", value: ""});
   const [loading, setLoading] = React.useState(true);
-  const [status, setstatus] = useState("0");
+  const [status, setstatus] = useState("");
   const [msg , setmsg]=useState("");
   const [ profileImg, setprofileImg]=useState([]);
   const [ profileImg_data, setprofileImg_data]=useState([]);
@@ -140,8 +140,6 @@ fetch('/users/check', {
 }).then(res => res.json())
     .then(returndata => setreturndata({ returndata }))
     .catch(error => console.error('Error:', error))
-    
-    setEmail("")
 }
 
   function handleSubmit(event) {
@@ -177,7 +175,6 @@ fetch('/users/check', {
     
 }
 useEffect(() => {
-console.log(returndata.returndata)
 if(returndata.returndata ===0){
 setstatus("")
 setmsg("")
