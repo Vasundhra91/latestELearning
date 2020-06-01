@@ -35,6 +35,7 @@ app.use(express.static(__dirname+'/ConfigFile'));
 // });
 controller(app)
 if (process.env.NODE_ENV === 'production') {
+  console.log("git push heroku master")
   app.use(express.static('Dashboard/build'));
   app.get('*', function (req, res) {
     res.sendFile(path.resolve(__dirname, 'Dashboard', 'build','index.html'));
