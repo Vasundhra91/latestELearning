@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "set PORT=3001 && node bin/www && node app.js",
-    "Server": "nodemon app.js",
+    "Server": "set PORT=3001 && node bin/www && nodemon app.js",
     "client-install": "npm install --prefix client",
     "client": "npm start --prefix client",
     "dev": "concurrently  \"npm run Server\" \"npm run client\"",
